@@ -1,0 +1,1395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRPL Solar – India's Trusted Solar Panel Installation Company</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sun: #FF9500;
+    --sun-bright: #FFD000;
+    --deep: #0A0F1E;
+    --mid: #0F1A2E;
+    --card: #111827;
+    --accent: #FF9500;
+    --accent2: #00C9A7;
+    --text: #E8EDF5;
+    --muted: #7A8BA0;
+    --white: #ffffff;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--deep);
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom Cursor */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--sun);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9999;
+    transition: transform 0.1s ease;
+    mix-blend-mode: difference;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1.5px solid var(--sun);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9998;
+    transition: all 0.15s ease;
+    opacity: 0.6;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+    padding: 20px 60px;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: all 0.4s ease;
+  }
+  nav.scrolled {
+    background: rgba(10,15,30,0.92);
+    backdrop-filter: blur(20px);
+    padding: 14px 60px;
+    border-bottom: 1px solid rgba(255,149,0,0.15);
+  }
+  .logo {
+    display: flex; align-items: center; gap: 12px;
+    text-decoration: none;
+  }
+  .logo-icon {
+    width: 44px; height: 44px;
+    background: linear-gradient(135deg, var(--sun), var(--sun-bright));
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px; color: var(--deep);
+    letter-spacing: 1px;
+    box-shadow: 0 0 20px rgba(255,149,0,0.4);
+  }
+  .logo-text { line-height: 1.1; }
+  .logo-text span:first-child {
+    display: block;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px; color: var(--white);
+    letter-spacing: 3px;
+  }
+  .logo-text span:last-child {
+    display: block;
+    font-size: 10px; color: var(--sun);
+    letter-spacing: 2px; text-transform: uppercase;
+  }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    color: var(--muted); text-decoration: none;
+    font-size: 13px; font-weight: 500; letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: color 0.3s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute; bottom: -4px; left: 0; width: 0; height: 1px;
+    background: var(--sun);
+    transition: width 0.3s;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-cta {
+    background: var(--sun);
+    color: var(--deep) !important;
+    padding: 10px 24px; border-radius: 4px;
+    font-weight: 700 !important;
+    transition: all 0.3s !important;
+    box-shadow: 0 0 0 rgba(255,149,0,0);
+  }
+  .nav-cta:hover {
+    background: var(--sun-bright) !important;
+    box-shadow: 0 0 24px rgba(255,149,0,0.5) !important;
+    color: var(--deep) !important;
+  }
+  .nav-cta::after { display: none !important; }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+    padding: 120px 60px 60px;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 80% at 60% 50%, rgba(255,149,0,0.08) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 40% at 20% 80%, rgba(0,201,167,0.06) 0%, transparent 60%);
+  }
+
+  /* Animated grid */
+  .grid-overlay {
+    position: absolute; inset: 0;
+    background-image: linear-gradient(rgba(255,149,0,0.04) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255,149,0,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    animation: gridMove 20s linear infinite;
+  }
+  @keyframes gridMove {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(60px); }
+  }
+
+  /* Sun orb */
+  .sun-orb {
+    position: absolute; right: 8%; top: 15%;
+    width: 380px; height: 380px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #FFD000 0%, #FF9500 45%, rgba(255,70,0,0.3) 70%, transparent 100%);
+    animation: sunPulse 4s ease-in-out infinite;
+    filter: blur(1px);
+  }
+  .sun-orb::before {
+    content: '';
+    position: absolute; inset: -30px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,200,0,0.15) 0%, transparent 70%);
+    animation: sunPulse 4s ease-in-out infinite reverse;
+  }
+  .sun-orb::after {
+    content: '';
+    position: absolute; inset: -60px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,149,0,0.08) 0%, transparent 70%);
+    animation: sunPulse 6s ease-in-out infinite;
+  }
+  @keyframes sunPulse {
+    0%, 100% { transform: scale(1); opacity: 0.9; }
+    50% { transform: scale(1.05); opacity: 1; }
+  }
+
+  /* Rays */
+  .rays {
+    position: absolute; right: 8%; top: 15%;
+    width: 380px; height: 380px;
+    animation: raysRotate 20s linear infinite;
+  }
+  .ray {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 2px; height: 500px;
+    background: linear-gradient(to bottom, rgba(255,200,0,0.2), transparent);
+    transform-origin: top center;
+    transform: translateX(-50%) rotate(calc(var(--i) * 30deg));
+  }
+  @keyframes raysRotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .hero-content { position: relative; z-index: 2; max-width: 680px; }
+
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,149,0,0.12);
+    border: 1px solid rgba(255,149,0,0.3);
+    border-radius: 100px;
+    padding: 8px 20px; margin-bottom: 32px;
+    font-size: 12px; font-weight: 600; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--sun);
+    animation: fadeSlideUp 0.8s ease both;
+  }
+  .hero-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--sun);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--sun);
+    animation: blink 1.5s ease-in-out infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(64px, 8vw, 110px);
+    line-height: 0.9;
+    letter-spacing: 2px;
+    animation: fadeSlideUp 0.8s 0.1s ease both;
+  }
+  .hero-title .line1 { color: var(--white); display: block; }
+  .hero-title .line2 {
+    display: block;
+    background: linear-gradient(90deg, var(--sun), var(--sun-bright));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-title .line3 { color: rgba(255,255,255,0.2); display: block; }
+
+  .hero-sub {
+    margin-top: 28px;
+    font-size: 17px; color: var(--muted);
+    line-height: 1.7; max-width: 480px;
+    font-weight: 300;
+    animation: fadeSlideUp 0.8s 0.2s ease both;
+  }
+
+  .hero-actions {
+    margin-top: 44px;
+    display: flex; gap: 16px; align-items: center;
+    animation: fadeSlideUp 0.8s 0.3s ease both;
+  }
+  .btn-primary {
+    background: var(--sun);
+    color: var(--deep);
+    padding: 16px 40px; border-radius: 4px;
+    font-weight: 700; font-size: 14px;
+    letter-spacing: 1px; text-transform: uppercase;
+    text-decoration: none; border: none; cursor: none;
+    transition: all 0.3s;
+    box-shadow: 0 0 0 rgba(255,149,0,0);
+    position: relative; overflow: hidden;
+  }
+  .btn-primary::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.5s;
+  }
+  .btn-primary:hover { box-shadow: 0 8px 30px rgba(255,149,0,0.5); transform: translateY(-2px); }
+  .btn-primary:hover::before { transform: translateX(100%); }
+
+  .btn-outline {
+    color: var(--white);
+    padding: 16px 40px; border-radius: 4px;
+    font-weight: 600; font-size: 14px;
+    letter-spacing: 1px; text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: all 0.3s; cursor: none;
+  }
+  .btn-outline:hover {
+    border-color: var(--sun);
+    color: var(--sun);
+    background: rgba(255,149,0,0.05);
+  }
+
+  .hero-stats {
+    margin-top: 64px;
+    display: flex; gap: 48px;
+    animation: fadeSlideUp 0.8s 0.4s ease both;
+  }
+  .hero-stat { }
+  .hero-stat .num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px; line-height: 1;
+    color: var(--white);
+  }
+  .hero-stat .num span { color: var(--sun); }
+  .hero-stat .label {
+    font-size: 11px; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 2px;
+    margin-top: 4px;
+  }
+
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Scroll indicator */
+  .scroll-hint {
+    position: absolute; bottom: 40px; left: 50%;
+    transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    color: var(--muted); font-size: 11px; letter-spacing: 2px;
+    text-transform: uppercase; animation: fadeSlideUp 1s 1s both;
+  }
+  .scroll-line {
+    width: 1px; height: 50px;
+    background: linear-gradient(to bottom, var(--sun), transparent);
+    animation: scrollLine 2s ease-in-out infinite;
+  }
+  @keyframes scrollLine {
+    0% { transform: scaleY(0); transform-origin: top; }
+    50% { transform: scaleY(1); transform-origin: top; }
+    51% { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+  }
+
+  /* SECTION BASE */
+  section { padding: 120px 60px; }
+  .section-label {
+    font-size: 11px; font-weight: 700;
+    color: var(--sun); letter-spacing: 4px;
+    text-transform: uppercase; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-label::before {
+    content: '';
+    width: 30px; height: 1px;
+    background: var(--sun);
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(44px, 5vw, 72px);
+    line-height: 1; letter-spacing: 2px;
+    color: var(--white);
+  }
+  .section-title span { color: var(--sun); }
+
+  /* WHY CRPL */
+  #why {
+    background: var(--mid);
+    position: relative; overflow: hidden;
+  }
+  #why::before {
+    content: '';
+    position: absolute; top: -200px; right: -200px;
+    width: 500px; height: 500px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,149,0,0.05) 0%, transparent 70%);
+  }
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .why-content { }
+  .why-badges {
+    display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px;
+  }
+  .badge {
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(255,149,0,0.08);
+    border: 1px solid rgba(255,149,0,0.2);
+    padding: 8px 16px; border-radius: 4px;
+    font-size: 12px; font-weight: 600; color: var(--sun);
+    letter-spacing: 1px;
+  }
+  .why-desc {
+    margin-top: 24px;
+    font-size: 16px; color: var(--muted);
+    line-height: 1.8; font-weight: 300;
+  }
+  .why-visual {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .why-card {
+    background: var(--card);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px; padding: 28px;
+    transition: all 0.4s;
+    position: relative; overflow: hidden;
+  }
+  .why-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--sun), transparent);
+    transform: scaleX(0); transition: transform 0.4s;
+  }
+  .why-card:hover { transform: translateY(-4px); border-color: rgba(255,149,0,0.2); }
+  .why-card:hover::before { transform: scaleX(1); }
+  .why-card-icon { font-size: 28px; margin-bottom: 12px; }
+  .why-card-title { font-weight: 700; font-size: 14px; margin-bottom: 6px; color: var(--white); }
+  .why-card-text { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+  /* SERVICES */
+  #services { max-width: 1300px; margin: 0 auto; }
+  .services-header { text-align: center; margin-bottom: 72px; }
+  .services-header .section-label { justify-content: center; }
+  .services-header .section-label::before { display: none; }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px; overflow: hidden;
+  }
+  .service-item {
+    background: var(--deep);
+    padding: 48px 40px;
+    position: relative; overflow: hidden;
+    transition: all 0.4s;
+    cursor: none;
+  }
+  .service-item::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(255,149,0,0.05) 0%, transparent 60%);
+    opacity: 0; transition: opacity 0.4s;
+  }
+  .service-item:hover::after { opacity: 1; }
+  .service-item:hover { background: var(--mid); }
+
+  .service-number {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px; color: rgba(255,149,0,0.4);
+    letter-spacing: 2px; margin-bottom: 24px;
+  }
+  .service-icon-wrap {
+    width: 56px; height: 56px;
+    border-radius: 12px;
+    background: rgba(255,149,0,0.1);
+    border: 1px solid rgba(255,149,0,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; margin-bottom: 24px;
+    transition: all 0.4s;
+  }
+  .service-item:hover .service-icon-wrap {
+    background: var(--sun);
+    box-shadow: 0 8px 24px rgba(255,149,0,0.3);
+  }
+  .service-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px; letter-spacing: 2px;
+    color: var(--white); margin-bottom: 12px;
+  }
+  .service-desc { font-size: 14px; color: var(--muted); line-height: 1.7; }
+  .service-link {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-top: 20px; font-size: 12px; font-weight: 700;
+    color: var(--sun); text-decoration: none;
+    letter-spacing: 1px; text-transform: uppercase;
+    transition: gap 0.3s;
+  }
+  .service-item:hover .service-link { gap: 14px; }
+
+  /* CALCULATOR */
+  #calculator {
+    background: var(--mid);
+    position: relative; overflow: hidden;
+  }
+  .calc-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 80% at 80% 50%, rgba(255,149,0,0.04) 0%, transparent 70%);
+  }
+  .calc-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+    position: relative; z-index: 2;
+  }
+  .calc-title { font-size: 16px; color: var(--muted); margin-top: 16px; line-height: 1.7; }
+
+  .calc-card {
+    background: var(--card);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px; padding: 48px;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.4);
+  }
+  .calc-label {
+    font-size: 12px; font-weight: 600; letter-spacing: 2px;
+    color: var(--sun); text-transform: uppercase; margin-bottom: 12px;
+  }
+  .calc-slider-wrap { margin-bottom: 36px; }
+  .calc-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px; color: var(--white); line-height: 1;
+    margin-bottom: 16px;
+  }
+  .calc-value span { color: var(--sun); font-size: 28px; }
+  input[type=range] {
+    -webkit-appearance: none;
+    width: 100%; height: 4px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 2px; outline: none; cursor: none;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--sun);
+    box-shadow: 0 0 0 4px rgba(255,149,0,0.2);
+    transition: all 0.2s;
+  }
+  input[type=range]::-webkit-slider-thumb:hover {
+    box-shadow: 0 0 0 8px rgba(255,149,0,0.2);
+  }
+
+  .calc-results {
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding-top: 28px; margin-top: 28px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+  }
+  .calc-result-item { }
+  .calc-result-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px; color: var(--sun); line-height: 1;
+  }
+  .calc-result-label { font-size: 11px; color: var(--muted); letter-spacing: 1px; margin-top: 4px; }
+
+  /* STATS COUNTER */
+  #stats {
+    padding: 80px 60px;
+    background: linear-gradient(135deg, rgba(255,149,0,0.08) 0%, rgba(0,201,167,0.04) 100%);
+    border-top: 1px solid rgba(255,149,0,0.1);
+    border-bottom: 1px solid rgba(255,149,0,0.1);
+  }
+  .stats-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+  }
+  .stat-item { text-align: center; }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 72px; line-height: 1; color: var(--white);
+  }
+  .stat-num .plus { color: var(--sun); }
+  .stat-label {
+    font-size: 13px; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 2px;
+    margin-top: 8px;
+  }
+  .stat-divider {
+    width: 40px; height: 2px;
+    background: var(--sun);
+    margin: 12px auto 0;
+    border-radius: 2px;
+  }
+
+  /* PROJECTS */
+  #projects { background: var(--deep); }
+  .projects-inner { max-width: 1200px; margin: 0 auto; }
+  .projects-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 60px;
+  }
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .project-card {
+    background: var(--card);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px; overflow: hidden;
+    transition: all 0.4s; cursor: none;
+  }
+  .project-card:hover { transform: translateY(-8px); border-color: rgba(255,149,0,0.2); }
+  .project-img {
+    height: 220px;
+    background: linear-gradient(135deg, var(--mid), rgba(255,149,0,0.1));
+    position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .project-img-icon { font-size: 64px; opacity: 0.3; }
+  .project-img-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.8));
+  }
+  .project-tag {
+    position: absolute; top: 16px; left: 16px;
+    background: var(--sun); color: var(--deep);
+    font-size: 10px; font-weight: 800;
+    padding: 4px 10px; border-radius: 3px;
+    letter-spacing: 1px; text-transform: uppercase;
+  }
+  .project-info { padding: 24px; }
+  .project-kw {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px; color: var(--sun); line-height: 1;
+  }
+  .project-name { font-size: 16px; font-weight: 600; color: var(--white); margin-top: 4px; }
+  .project-loc { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+  /* TRUST */
+  #trust { background: var(--mid); }
+  .trust-inner { max-width: 1100px; margin: 0 auto; }
+  .trust-logos {
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    gap: 16px; margin-top: 64px;
+  }
+  .trust-logo {
+    background: var(--card);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px; padding: 28px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 13px; color: var(--muted);
+    letter-spacing: 1px; text-transform: uppercase;
+    transition: all 0.3s;
+  }
+  .trust-logo:hover { border-color: rgba(255,149,0,0.2); color: var(--white); }
+
+  .trust-certifications {
+    margin-top: 60px;
+    display: flex; gap: 16px; justify-content: center;
+  }
+  .cert-badge {
+    background: rgba(255,149,0,0.08);
+    border: 1px solid rgba(255,149,0,0.2);
+    border-radius: 12px; padding: 20px 32px;
+    text-align: center;
+  }
+  .cert-badge .cert-title { font-size: 10px; color: var(--sun); letter-spacing: 2px; text-transform: uppercase; }
+  .cert-badge .cert-val { font-weight: 700; font-size: 14px; color: var(--white); margin-top: 4px; }
+
+  /* PROCESS */
+  #process { background: var(--deep); }
+  .process-inner { max-width: 1000px; margin: 0 auto; }
+  .process-steps { margin-top: 72px; position: relative; }
+  .process-line {
+    position: absolute; top: 28px; left: 28px; right: 28px; height: 1px;
+    background: rgba(255,149,0,0.15);
+    z-index: 0;
+  }
+  .process-line-fill {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, var(--sun), var(--sun-bright));
+    transition: width 1.5s ease;
+  }
+  .process-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 32px; position: relative; z-index: 1;
+  }
+  .process-step { text-align: center; }
+  .process-dot {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: var(--card);
+    border: 2px solid rgba(255,149,0,0.2);
+    margin: 0 auto 24px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px; color: var(--sun);
+    transition: all 0.4s;
+    position: relative;
+  }
+  .process-step.active .process-dot {
+    background: var(--sun);
+    color: var(--deep);
+    border-color: var(--sun);
+    box-shadow: 0 0 24px rgba(255,149,0,0.4);
+  }
+  .process-step-title { font-weight: 700; font-size: 14px; color: var(--white); margin-bottom: 8px; }
+  .process-step-text { font-size: 12px; color: var(--muted); line-height: 1.7; }
+
+  /* CTA */
+  #cta {
+    background: linear-gradient(135deg, #0A0F1E 0%, #1A0F00 100%);
+    position: relative; overflow: hidden;
+    text-align: center; padding: 120px 60px;
+  }
+  #cta::before {
+    content: '';
+    position: absolute; top: -300px; left: 50%; transform: translateX(-50%);
+    width: 800px; height: 600px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,149,0,0.12) 0%, transparent 70%);
+  }
+  .cta-inner { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; }
+  .cta-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(52px, 7vw, 100px);
+    line-height: 0.9; letter-spacing: 3px;
+    color: var(--white);
+    margin-bottom: 24px;
+  }
+  .cta-title span { color: var(--sun); }
+  .cta-sub { font-size: 16px; color: var(--muted); margin-bottom: 48px; line-height: 1.7; }
+  .cta-actions { display: flex; gap: 16px; justify-content: center; }
+
+  /* FOOTER */
+  footer {
+    background: #060A14;
+    padding: 80px 60px 40px;
+    border-top: 1px solid rgba(255,255,255,0.04);
+  }
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 60px; max-width: 1200px; margin: 0 auto;
+    padding-bottom: 60px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .footer-brand .logo { margin-bottom: 20px; display: inline-flex; }
+  .footer-brand p { font-size: 13px; color: var(--muted); line-height: 1.7; }
+  .footer-social { display: flex; gap: 12px; margin-top: 24px; }
+  .social-btn {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; text-decoration: none;
+    transition: all 0.3s;
+  }
+  .social-btn:hover { border-color: var(--sun); background: rgba(255,149,0,0.1); }
+  .footer-col h4 {
+    font-size: 12px; font-weight: 700; color: var(--white);
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 12px; }
+  .footer-col ul li a {
+    font-size: 13px; color: var(--muted); text-decoration: none;
+    transition: color 0.3s;
+  }
+  .footer-col ul li a:hover { color: var(--sun); }
+  .footer-bottom {
+    max-width: 1200px; margin: 0 auto;
+    padding-top: 32px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 12px; color: rgba(255,255,255,0.2);
+  }
+  .footer-bottom span { color: var(--sun); }
+
+  /* ANIMATIONS */
+  .reveal {
+    opacity: 0; transform: translateY(40px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+  .reveal-delay-5 { transition-delay: 0.5s; }
+
+  /* Floating particles */
+  .particles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+  .particle {
+    position: absolute;
+    width: 2px; height: 2px;
+    background: var(--sun);
+    border-radius: 50%;
+    animation: floatParticle var(--dur, 10s) var(--delay, 0s) linear infinite;
+    opacity: var(--op, 0.3);
+  }
+  @keyframes floatParticle {
+    0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+    10% { opacity: var(--op, 0.3); }
+    90% { opacity: var(--op, 0.3); }
+    100% { transform: translateY(-100px) translateX(var(--drift, 50px)); opacity: 0; }
+  }
+
+  /* Marquee */
+  .marquee-wrap {
+    overflow: hidden; padding: 24px 0;
+    background: rgba(255,149,0,0.06);
+    border-top: 1px solid rgba(255,149,0,0.1);
+    border-bottom: 1px solid rgba(255,149,0,0.1);
+  }
+  .marquee-track {
+    display: flex; gap: 60px; width: max-content;
+    animation: marquee 20s linear infinite;
+  }
+  .marquee-item {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px; letter-spacing: 4px;
+    color: rgba(255,149,0,0.4);
+    white-space: nowrap;
+  }
+  .marquee-item.bright { color: var(--sun); }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  @media (max-width: 1024px) {
+    nav { padding: 16px 30px; }
+    nav.scrolled { padding: 12px 30px; }
+    .nav-links { display: none; }
+    section { padding: 80px 30px; }
+    #hero { padding: 100px 30px 60px; }
+    .why-grid, .calc-inner { grid-template-columns: 1fr; gap: 40px; }
+    .services-grid { grid-template-columns: 1fr 1fr; }
+    .stats-inner { grid-template-columns: repeat(2, 1fr); }
+    .projects-grid { grid-template-columns: 1fr 1fr; }
+    .trust-logos { grid-template-columns: repeat(3, 1fr); }
+    .process-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+    .process-line { display: none; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+    .sun-orb, .rays { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="logo">
+    <div class="logo-icon">CR</div>
+    <div class="logo-text">
+      <span>CRPL Solar</span>
+      <span>Corporate Group</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#why">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#trust">Trust</a></li>
+    <li><a href="#calculator">Calculator</a></li>
+    <li><a href="#cta" class="nav-cta">Get Free Quote</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="grid-overlay"></div>
+  <div class="sun-orb"></div>
+  <div class="rays">
+    <div class="ray" style="--i:0"></div>
+    <div class="ray" style="--i:1"></div>
+    <div class="ray" style="--i:2"></div>
+    <div class="ray" style="--i:3"></div>
+    <div class="ray" style="--i:4"></div>
+    <div class="ray" style="--i:5"></div>
+    <div class="ray" style="--i:6"></div>
+    <div class="ray" style="--i:7"></div>
+    <div class="ray" style="--i:8"></div>
+    <div class="ray" style="--i:9"></div>
+    <div class="ray" style="--i:10"></div>
+    <div class="ray" style="--i:11"></div>
+  </div>
+  <div class="particles" id="particles"></div>
+
+  <div class="hero-content">
+    <div class="hero-tag">India's #1 Solar Installation Company</div>
+    <h1 class="hero-title">
+      <span class="line1">POWER YOUR</span>
+      <span class="line2">FUTURE</span>
+      <span class="line3">WITH SUNLIGHT</span>
+    </h1>
+    <p class="hero-sub">Maharashtra's most trusted solar company — delivering cutting-edge solar solutions for homes, businesses, and industries since 2010. MNRE registered. SCPVT certified.</p>
+    <div class="hero-actions">
+      <a href="#cta" class="btn-primary">Get Free Quote →</a>
+      <a href="#calculator" class="btn-outline">Calculate Savings</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="num"><span id="c1">0</span><span>+</span></div>
+        <div class="label">Projects Done</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num"><span id="c2">0</span><span>MW</span></div>
+        <div class="label">Installed Capacity</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num"><span id="c3">0</span><span>+</span></div>
+        <div class="label">Happy Clients</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">MNRE REGISTERED</span>
+    <span class="marquee-item bright">★</span>
+    <span class="marquee-item">SCPVT CERTIFIED</span>
+    <span class="marquee-item bright">★</span>
+    <span class="marquee-item">25 YEAR WARRANTY</span>
+    <span class="marquee-item bright">★</span>
+    <span class="marquee-item">PREMIER CHANNEL PARTNER</span>
+    <span class="marquee-item bright">★</span>
+    <span class="marquee-item">ZERO UPFRONT OPTION</span>
+    <span class="marquee-item bright">★</span>
+    <span class="marquee-item">24/7 SUPPORT</span>
+    <span class="marquee-item bright">★</span>
+    <span class="marquee-item">MNRE REGISTERED</span>
+    <span class="marquee-item bright">★</span>
+    <span class="marquee-item">SCPVT CERTIFIED</span>
+    <span class="marquee-item bright">★</span>
+    <span class="marquee-item">25 YEAR WARRANTY</span>
+    <span class="marquee-item bright">★</span>
+    <span class="marquee-item">PREMIER CHANNEL PARTNER</span>
+    <span class="marquee-item bright">★</span>
+    <span class="marquee-item">ZERO UPFRONT OPTION</span>
+    <span class="marquee-item bright">★</span>
+    <span class="marquee-item">24/7 SUPPORT</span>
+    <span class="marquee-item bright">★</span>
+  </div>
+</div>
+
+<!-- WHY CRPL -->
+<section id="why">
+  <div class="why-grid">
+    <div class="why-content reveal">
+      <div class="section-label">Why Choose Us</div>
+      <h2 class="section-title">Maharashtra's <span>#1</span> Solar Company</h2>
+      <p class="why-desc">We are a leading Solar EPC company with over 15 years of experience in delivering high-quality solar power solutions. As an MNRE-registered and SCPVT-certified partner, we are committed to providing reliable, eco-friendly solar solutions for residential, commercial, and industrial needs.</p>
+      <div class="why-badges">
+        <div class="badge">⚡ MNRE Registered</div>
+        <div class="badge">✓ SCPVT Certified</div>
+        <div class="badge">🤝 Premier Channel Partner</div>
+      </div>
+    </div>
+    <div class="why-visual">
+      <div class="why-card reveal reveal-delay-1">
+        <div class="why-card-icon">🚫</div>
+        <div class="why-card-title">Zero Upfront</div>
+        <div class="why-card-text">Switch to solar with no initial investment. Start saving from day one.</div>
+      </div>
+      <div class="why-card reveal reveal-delay-2">
+        <div class="why-card-icon">👷</div>
+        <div class="why-card-title">Expert Staff</div>
+        <div class="why-card-text">Highly qualified team ensuring flawless installation every time.</div>
+      </div>
+      <div class="why-card reveal reveal-delay-3">
+        <div class="why-card-icon">🛡️</div>
+        <div class="why-card-title">25-Year Warranty</div>
+        <div class="why-card-text">Long-term performance guarantee with premium panels.</div>
+      </div>
+      <div class="why-card reveal reveal-delay-4">
+        <div class="why-card-icon">📞</div>
+        <div class="why-card-title">24/7 Support</div>
+        <div class="why-card-text">Always available to ensure your system works at peak efficiency.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="services-header reveal">
+      <div class="section-label">Our Solutions</div>
+      <h2 class="section-title">Complete Solar <span>Power</span> Solutions</h2>
+      <p style="margin-top:16px;color:var(--muted);font-size:16px;">From residential rooftops to large-scale industrial projects, we handle it all.</p>
+    </div>
+    <div class="services-grid reveal">
+      <div class="service-item">
+        <div class="service-number">01 / 06</div>
+        <div class="service-icon-wrap">☀️</div>
+        <div class="service-name">Ground Mounted Solar</div>
+        <div class="service-desc">Utility-scale solar power plants mounted on open land for maximum output and efficiency.</div>
+        <a href="#cta" class="service-link">Learn More →</a>
+      </div>
+      <div class="service-item">
+        <div class="service-number">02 / 06</div>
+        <div class="service-icon-wrap">🏠</div>
+        <div class="service-name">Rooftop Solar</div>
+        <div class="service-desc">Transform your unused rooftop into a power generator. Ideal for homes and businesses.</div>
+        <a href="#cta" class="service-link">Learn More →</a>
+      </div>
+      <div class="service-item">
+        <div class="service-number">03 / 06</div>
+        <div class="service-icon-wrap">💧</div>
+        <div class="service-name">Floating Solar</div>
+        <div class="service-desc">Innovative solar systems installed on water bodies — saving land and cooling panels.</div>
+        <a href="#cta" class="service-link">Learn More →</a>
+      </div>
+      <div class="service-item">
+        <div class="service-number">04 / 06</div>
+        <div class="service-icon-wrap">🏗️</div>
+        <div class="service-name">Capex Model</div>
+        <div class="service-desc">Own your solar system outright and enjoy 100% of the benefits and savings.</div>
+        <a href="#cta" class="service-link">Learn More →</a>
+      </div>
+      <div class="service-item">
+        <div class="service-number">05 / 06</div>
+        <div class="service-icon-wrap">⚡</div>
+        <div class="service-name">RESCO Model</div>
+        <div class="service-desc">Pay only for the power you consume — no upfront cost, instant savings.</div>
+        <a href="#cta" class="service-link">Learn More →</a>
+      </div>
+      <div class="service-item">
+        <div class="service-number">06 / 06</div>
+        <div class="service-icon-wrap">🔧</div>
+        <div class="service-name">O&M Services</div>
+        <div class="service-desc">Complete operations and maintenance to ensure peak performance year after year.</div>
+        <a href="#cta" class="service-link">Learn More →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section id="stats">
+  <div class="stats-inner">
+    <div class="stat-item reveal">
+      <div class="stat-num"><span class="count" data-target="500">0</span><span class="plus">+</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat-label">Solar Projects Completed</div>
+    </div>
+    <div class="stat-item reveal reveal-delay-1">
+      <div class="stat-num"><span class="count" data-target="50">0</span><span class="plus">MW</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat-label">Total Installed Capacity</div>
+    </div>
+    <div class="stat-item reveal reveal-delay-2">
+      <div class="stat-num"><span class="count" data-target="15">0</span><span class="plus">+</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat-label">Years of Excellence</div>
+    </div>
+    <div class="stat-item reveal reveal-delay-3">
+      <div class="stat-num"><span class="count" data-target="1000">0</span><span class="plus">+</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat-label">Happy Customers</div>
+    </div>
+  </div>
+</section>
+
+<!-- CALCULATOR -->
+<section id="calculator">
+  <div class="calc-bg"></div>
+  <div class="calc-inner">
+    <div class="reveal">
+      <div class="section-label">Savings Calculator</div>
+      <h2 class="section-title">See How Much <span>You Save</span></h2>
+      <p class="calc-title">Enter your monthly electricity bill and instantly see your recommended solar system size and potential savings. Go solar, save more.</p>
+    </div>
+    <div class="calc-card reveal reveal-delay-2">
+      <div class="calc-label">Monthly Electricity Bill</div>
+      <div class="calc-slider-wrap">
+        <div class="calc-value">₹<span id="billValue">3,000</span></div>
+        <input type="range" id="billSlider" min="1000" max="30000" value="3000" step="500">
+      </div>
+
+      <div class="calc-results">
+        <div class="calc-result-item">
+          <div class="calc-result-value" id="systemSize">3.0 kW</div>
+          <div class="calc-result-label">Recommended System</div>
+        </div>
+        <div class="calc-result-item">
+          <div class="calc-result-value" id="monthlySavings">₹2,700</div>
+          <div class="calc-result-label">Monthly Savings</div>
+        </div>
+        <div class="calc-result-item">
+          <div class="calc-result-value" id="yearlySavings">₹32,400</div>
+          <div class="calc-result-label">Annual Savings</div>
+        </div>
+        <div class="calc-result-item">
+          <div class="calc-result-value" id="payback">3.2 yrs</div>
+          <div class="calc-result-label">Payback Period</div>
+        </div>
+      </div>
+
+      <a href="#cta" class="btn-primary" style="display:block;text-align:center;margin-top:28px;">Get Detailed Quote →</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="projects-inner">
+    <div class="projects-header">
+      <div class="reveal">
+        <div class="section-label">Landmark Projects</div>
+        <h2 class="section-title">Our Work <span>Speaks</span></h2>
+      </div>
+      <a href="#cta" class="btn-outline reveal" style="font-size:13px;padding:14px 28px;">View All Projects →</a>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card reveal">
+        <div class="project-img">
+          <div class="project-img-icon">☀️</div>
+          <div class="project-img-overlay"></div>
+          <div class="project-tag">51 kW</div>
+        </div>
+        <div class="project-info">
+          <div class="project-kw">51 kW</div>
+          <div class="project-name">Sultari Dist Latur</div>
+          <div class="project-loc">📍 Latur, Maharashtra</div>
+        </div>
+      </div>
+      <div class="project-card reveal reveal-delay-2">
+        <div class="project-img" style="background:linear-gradient(135deg,#1A1505,rgba(255,180,0,0.15));">
+          <div class="project-img-icon">🕌</div>
+          <div class="project-img-overlay"></div>
+          <div class="project-tag">51 kW</div>
+        </div>
+        <div class="project-info">
+          <div class="project-kw">51 kW</div>
+          <div class="project-name">Gurudwara Langar Sahib</div>
+          <div class="project-loc">📍 Aurangabad, Maharashtra</div>
+        </div>
+      </div>
+      <div class="project-card reveal reveal-delay-3">
+        <div class="project-img" style="background:linear-gradient(135deg,#051A10,rgba(0,200,120,0.1));">
+          <div class="project-img-icon">🏢</div>
+          <div class="project-img-overlay"></div>
+          <div class="project-tag">57 kW</div>
+        </div>
+        <div class="project-info">
+          <div class="project-kw">57 kW</div>
+          <div class="project-name">Dhule Municipal Corp</div>
+          <div class="project-loc">📍 Dhule, Maharashtra</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="process-inner">
+    <div style="text-align:center" class="reveal">
+      <div class="section-label" style="justify-content:center;">
+        <span style="width:30px;height:1px;background:var(--sun);display:block;"></span>
+        How It Works
+      </div>
+      <h2 class="section-title">Solar <span>Made Simple</span></h2>
+      <p style="color:var(--muted);font-size:15px;margin-top:16px;">Our streamlined process gets you from inquiry to energy generation in no time.</p>
+    </div>
+    <div class="process-steps">
+      <div class="process-line">
+        <div class="process-line-fill" id="processLine"></div>
+      </div>
+      <div class="process-grid">
+        <div class="process-step active reveal">
+          <div class="process-dot">01</div>
+          <div class="process-step-title">Free Consultation</div>
+          <div class="process-step-text">We analyze your energy needs, roof area, and current bill to design the ideal system.</div>
+        </div>
+        <div class="process-step reveal reveal-delay-1">
+          <div class="process-dot">02</div>
+          <div class="process-step-title">Custom Design</div>
+          <div class="process-step-text">Our engineers create a tailor-made solar solution to maximize your savings.</div>
+        </div>
+        <div class="process-step reveal reveal-delay-2">
+          <div class="process-dot">03</div>
+          <div class="process-step-title">Expert Installation</div>
+          <div class="process-step-text">Certified technicians complete installation quickly with minimal disruption.</div>
+        </div>
+        <div class="process-step reveal reveal-delay-3">
+          <div class="process-dot">04</div>
+          <div class="process-step-title">Go Solar & Save</div>
+          <div class="process-step-text">Your system goes live. Start saving up to 90% on your electricity bills immediately.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section id="trust">
+  <div class="trust-inner">
+    <div class="reveal" style="text-align:center">
+      <div class="section-label" style="justify-content:center;">
+        <span style="width:30px;height:1px;background:var(--sun);display:block;"></span>
+        Trusted Partners
+      </div>
+      <h2 class="section-title">Trusted by <span>Leading</span> Organizations</h2>
+    </div>
+    <div class="trust-logos">
+      <div class="trust-logo reveal">Laboratoris</div>
+      <div class="trust-logo reveal reveal-delay-1">Crompton Greaves</div>
+      <div class="trust-logo reveal reveal-delay-2">MIT Aurangabad</div>
+      <div class="trust-logo reveal reveal-delay-3">East-West Seeds</div>
+      <div class="trust-logo reveal reveal-delay-4">North Sew</div>
+    </div>
+    <div class="trust-certifications reveal" style="margin-top:60px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+      <div class="cert-badge">
+        <div class="cert-title">MNRE</div>
+        <div class="cert-val">Registered</div>
+      </div>
+      <div class="cert-badge">
+        <div class="cert-title">MEDA</div>
+        <div class="cert-val">Registered</div>
+      </div>
+      <div class="cert-badge">
+        <div class="cert-title">Waaree</div>
+        <div class="cert-val">Master Partner</div>
+      </div>
+      <div class="cert-badge">
+        <div class="cert-title">MG</div>
+        <div class="cert-val">Registered</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="cta-inner reveal">
+    <div class="section-label" style="justify-content:center;">
+      <span style="width:30px;height:1px;background:var(--sun);display:block;"></span>
+      Ready to Switch?
+    </div>
+    <h2 class="cta-title">SWITCH TO <span>SOLAR</span> TODAY</h2>
+    <p class="cta-sub">Call us now to start your journey to clean, affordable energy. Save up to 90% on your electricity bills and reduce your carbon footprint.</p>
+    <div class="cta-actions">
+      <a href="tel:+917385009126" class="btn-primary">📞 Call Now: +91 73850 09126</a>
+      <a href="mailto:info@crplsolar.com" class="btn-outline">✉ info@crplsolar.com</a>
+    </div>
+    <div style="margin-top:48px;display:flex;gap:32px;justify-content:center;font-size:13px;color:var(--muted);">
+      <span>📍 Aurangabad, Maharashtra</span>
+      <span>🕐 Mon–Sat: 9AM–7PM</span>
+      <span>⚡ Free Site Survey</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#" class="logo">
+        <div class="logo-icon">CR</div>
+        <div class="logo-text">
+          <span>CRPL Solar</span>
+          <span>Corporate Group</span>
+        </div>
+      </a>
+      <p>Maharashtra's most trusted solar panel installation company. Empowering homes and businesses with clean, affordable solar energy since 2010.</p>
+      <div class="footer-social">
+        <a href="#" class="social-btn">f</a>
+        <a href="#" class="social-btn">in</a>
+        <a href="#" class="social-btn">ig</a>
+        <a href="#" class="social-btn">yt</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#">Rooftop Solar</a></li>
+        <li><a href="#">Ground Mounted</a></li>
+        <li><a href="#">Floating Solar</a></li>
+        <li><a href="#">RESCO Model</a></li>
+        <li><a href="#">O&M Services</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Our Projects</a></li>
+        <li><a href="#">Why Choose Us</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:+917385009126">+91 73850 09126</a></li>
+        <li><a href="mailto:info@crplsolar.com">info@crplsolar.com</a></li>
+        <li><a href="#">Aurangabad, MH</a></li>
+        <li><a href="#">Nashik, MH</a></li>
+        <li><a href="#">Mumbai, MH</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 CRPL Solar Corporate Group. All rights reserved.</span>
+    <span>Made with <span>♥</span> in Maharashtra</span>
+  </div>
+</footer>
+
+<script>
+  // Cursor
+  const cursor = document.getElementById('cursor');
+  const cursorRing = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx - 6 + 'px';
+    cursor.style.top = my - 6 + 'px';
+  });
+  function animRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    cursorRing.style.left = rx - 18 + 'px';
+    cursorRing.style.top = ry - 18 + 'px';
+    requestAnimationFrame(animRing);
+  }
+  animRing();
+  document.querySelectorAll('a,button,input').forEach(el => {
+    el.addEventListener('mouseenter', () => { cursorRing.style.transform = 'scale(1.8)'; cursor.style.transform = 'scale(0.5)'; });
+    el.addEventListener('mouseleave', () => { cursorRing.style.transform = 'scale(1)'; cursor.style.transform = 'scale(1)'; });
+  });
+
+  // Navbar scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Hero counter animation
+  function countUp(el, target, duration) {
+    let start = 0;
+    const step = target / (duration / 16);
+    const timer = setInterval(() => {
+      start += step;
+      if (start >= target) { start = target; clearInterval(timer); }
+      el.textContent = Math.floor(start).toLocaleString();
+    }, 16);
+  }
+  setTimeout(() => {
+    countUp(document.getElementById('c1'), 500, 2000);
+    countUp(document.getElementById('c2'), 50, 2000);
+    countUp(document.getElementById('c3'), 1000, 2000);
+  }, 600);
+
+  // Particles
+  const particlesEl = document.getElementById('particles');
+  for (let i = 0; i < 30; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.cssText = `left:${Math.random()*100}%;--dur:${8+Math.random()*12}s;--delay:${Math.random()*10}s;--drift:${(Math.random()-0.5)*100}px;--op:${0.1+Math.random()*0.4}`;
+    particlesEl.appendChild(p);
+  }
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Counter stats
+  const counts = document.querySelectorAll('.count');
+  const countObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        countUp(e.target, parseInt(e.target.dataset.target), 1800);
+        countObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  counts.forEach(el => countObs.observe(el));
+
+  // Process line
+  const processLine = document.getElementById('processLine');
+  const processObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { processLine.style.width = '100%'; }
+    });
+  }, { threshold: 0.3 });
+  if (processLine) processObs.observe(processLine);
+
+  // Calculator
+  const slider = document.getElementById('billSlider');
+  function updateCalc() {
+    const bill = parseInt(slider.value);
+    const kw = (bill / 1000).toFixed(1);
+    const saving = Math.round(bill * 0.9);
+    const yearly = saving * 12;
+    const cost = bill * 12 * 3;
+    const payback = (cost / yearly).toFixed(1);
+    document.getElementById('billValue').textContent = bill.toLocaleString('en-IN');
+    document.getElementById('systemSize').textContent = kw + ' kW';
+    document.getElementById('monthlySavings').textContent = '₹' + saving.toLocaleString('en-IN');
+    document.getElementById('yearlySavings').textContent = '₹' + yearly.toLocaleString('en-IN');
+    document.getElementById('payback').textContent = payback + ' yrs';
+  }
+  slider.addEventListener('input', updateCalc);
+  updateCalc();
+</script>
+</body>
+</html>
